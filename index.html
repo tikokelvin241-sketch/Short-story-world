@@ -1,0 +1,93 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Short Story World</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#10101c;color:white;font-family:Arial,sans-serif}
+header{padding:22px;background:#19192b}
+h1{color:#c5a5ff;margin:0}
+select{padding:12px;border-radius:10px;margin-top:15px;width:100%;background:#292943;color:white}
+nav{display:flex;gap:10px;padding:15px;overflow:auto}
+button{background:#292943;color:white;border:0;padding:12px 18px;border-radius:20px;white-space:nowrap}
+button:focus,button:hover{background:#8055dc}
+main{padding:15px}
+h2{color:#d2b9ff}
+.card{background:#202037;padding:17px;border-radius:14px;margin:12px 0}
+.poster{height:130px;border-radius:10px;background:linear-gradient(135deg,#512b77,#17172b);display:flex;align-items:center;justify-content:center;font-size:45px}
+small{color:#bdb9ce}
+footer{text-align:center;padding:25px;color:#aaa}
+</style>
+</head>
+<body>
+<header>
+<h1>🌍 Short Story World</h1>
+<p id="tagline">Read Stories. Watch Drama. Explore the World.</p>
+<select id="language" onchange="changeLanguage()">
+<option value="en">🇬🇧 English</option>
+<option value="sw">🇹🇿 Kiswahili</option>
+<option value="fr">🇫🇷 Français</option>
+<option value="es">🇪🇸 Español</option>
+<option value="ar">🇸🇦 العربية</option>
+</select>
+</header>
+<nav>
+<button onclick="show('stories')">📚 Stories</button>
+<button onclick="show('drama')">🎬 AI Drama</button>
+<button onclick="show('videos')">▶ Videos</button>
+</nav>
+<main>
+<h2 id="welcome">Discover Amazing Stories</h2>
+<div id="content">
+<div class="card">
+<div class="poster">❤️</div>
+<h3>Love and Betrayal</h3>
+<small>Romance • Story</small>
+<p>A beautiful story about love, secrets and betrayal.</p>
+</div>
+<div class="card">
+<div class="poster">👻</div>
+<h3>The Haunted House</h3>
+<small>Horror • Story</small>
+<p>A mysterious house hides a terrible secret.</p>
+</div>
+<div class="card">
+<div class="poster">🎬</div>
+<h3>AI Drama Series</h3>
+<small>Episodes • 1–5 minutes</small>
+<p>Discover exciting AI-generated drama stories.</p>
+</div>
+</div>
+</main>
+<footer>© 2026 Short Story World</footer>
+<script>
+const translations={
+en:["Discover Amazing Stories","Stories","AI Drama","Videos"],
+sw:["Gundua Hadithi Nzuri","Hadithi","Drama za AI","Video"],
+fr:["Découvrez de belles histoires","Histoires","Drames IA","Vidéos"],
+es:["Descubre historias increíbles","Historias","Drama IA","Videos"],
+ar:["اكتشف قصصاً رائعة","قصص","دراما الذكاء الاصطناعي","فيديو"]
+};
+function changeLanguage(){
+let l=document.getElementById("language").value;
+let t=translations[l];
+document.getElementById("welcome").textContent=t[0];
+document.querySelectorAll("nav button").forEach((b,i)=>b.textContent=t[i+1]);
+document.documentElement.dir=l==="ar"?"rtl":"ltr";
+}
+function show(type){
+let titles={
+stories:"📚 Stories",
+drama:"🎬 AI Drama Series",
+videos:"▶ AI Short Videos"
+};
+document.getElementById("welcome").textContent=titles[type];
+document.getElementById("content").innerHTML=
+'<div class="card"><div class="poster">🎥</div><h3>'+titles[type]+'</h3><p>New AI-generated entertainment coming soon.</p><small>Short Story World</small></div>';
+}
+</script>
+</body>
+</html>

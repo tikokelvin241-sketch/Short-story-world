@@ -1,350 +1,153 @@
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Short Story World</title>
 <style>
+:root{--bg:#0c1220;--panel:#172238;--panel2:#202e47;--gold:#f2b84b;--text:#f7f8fb;--muted:#b9c4d6}
 *{box-sizing:border-box}
-body{margin:0;background:#10101c;color:white;font-family:Arial,sans-serif}
-header{padding:22px;background:#19192b}
-h1{color:#c5a5ff;margin:0}
-select{padding:12px;border-radius:10px;margin-top:15px;width:100%;background:#292943;color:white}
-nav{display:flex;gap:10px;padding:15px;overflow:auto}
-button{background:#292943;color:white;border:0;padding:12px 18px;border-radius:20px;white-space:nowrap}
-button:focus,button:hover{background:#8055dc}
-main{padding:15px}
-h2{color:#d2b9ff}
-.card{background:#202037;padding:17px;border-radius:14px;margin:12px 0}
-.poster{height:130px;border-radius:10px;background:linear-gradient(135deg,#512b77,#17172b);display:flex;align-items:center;justify-content:center;font-size:45px}
-small{color:#bdb9ce}
-footer{text-align:center;padding:25px;color:#aaa}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
+header{padding:24px 16px;text-align:center;background:linear-gradient(135deg,#172b49,#101522)}
+header h1{margin:0 0 8px;font-size:clamp(27px,6vw,42px)}
+header p{margin:0;color:var(--muted)}
+nav{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:14px;background:#111a2b;position:sticky;top:0;z-index:5}
+button{border:0;border-radius:9px;padding:11px 15px;background:var(--gold);color:#1a1a1a;font-weight:700;cursor:pointer}
+button.secondary{background:var(--panel2);color:white;border:1px solid #40516c}
+main{max-width:900px;margin:auto;padding:18px}
+.card{background:var(--panel);border:1px solid #293953;border-radius:14px;padding:18px;margin:12px 0}
+.card h2,.card h3{margin-top:0}
+.muted{color:var(--muted);line-height:1.6}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.episode{width:100%;text-align:left;margin:5px 0;background:var(--panel2);color:white;border:1px solid #40516c}
+video{width:100%;max-height:480px;background:#05070b;border-radius:10px}
+footer{text-align:center;color:var(--muted);padding:25px}
 </style>
 </head>
 <body>
 <header>
-<h1>🌍 Short Story World</h1>
-<p id="tagline">Read Stories. Watch Drama. Explore the World.</p>
-<select id="language" onchange="changeLanguage()">
-<option value="en">🇬🇧 English</option>
-<option value="sw">🇹🇿 Kiswahili</option>
-<option value="fr">🇫🇷 Français</option>
-<option value="es">🇪🇸 Español</option>
-<option value="ar">🇸🇦 العربية</option>
-</select>
-</header>
-<nav>
-<button onclick="show('stories')">📚 Stories</button>
-<button onclick="show('drama')">🎬 AI Drama</button>
-<button onclick="show('videos')">▶ Videos</button>
-</nav>
-<main>
-<h2 id="welcome">Discover Amazing Stories</h2>
-<div id="content">
-<div class="card">
-<div class="poster">❤️</div>
-<h3>Love and Betrayal</h3>
-<small>Romance • Story</small>
-<p>A beautiful story about love, secrets and betrayal.</p>
-</div>
-<div class="card">
-<div class="poster">👻</div>
-<h3>The Haunted House</h3>
-<small>Horror • Story</small>
-<p>A mysterious house hides a terrible secret.</p>
-</div>
-<div class="card">
-<div class="poster">🎬</div>
-<h3>AI Drama Series</h3>
-<small>Episodes • 1–5 minutes</small>
-<p>Discover exciting AI-generated drama stories.</p>
-</div>
-</div>
-</main>
-<footer>© 2026 Short Story World</footer>
-
-<script>add 20 episode
-const translations = {
- en:["Discover Amazing Stories","Stories","AI Drama","Videos"],
- sw:["Gundua Hadithi Nzuri","Hadithi","Drama za AI","Video"],
- fr:["Découvrez de belles histoires","Histoires","Drames IA","Vidéos"],
- es:["Descubre historias increíbles","Historias","Drama IA","Vídeos"],
- ar:["اكتشف قصصاً رائعة","قصص","دراما الذكاء الاصطناعي","فيديو"]
-};
-
-function changeLanguage(){
- const lang=document.getElementById("language").value;
- const t=translations[lang];
- document.getElementById("welcome").textContent=t[0];
- document.querySelectorAll("nav button").forEach((b,i)=>b.textContent=t[i+1]);
- document.documentElement.dir=lang==="ar"?"rtl":"ltr";
-}
-
-function show(type){
- const content=document.getElementById("content");
-
- if(type==="drama" || type==="videos"){
-  document.getElementById("welcome").textContent=
-   type==="drama"?"🎬 AI Drama Series":"▶ AI Short Videos";
-
-  content.innerHTML=`
-   <div class="card">
-    <div class="poster">❤️</div>
-    <h3>Love and Betrayal</h3>
-    <p>AI Romantic Drama Series</p>
-    <p>20 Episodes • 1–5 minutes each</p>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">
-    ${Array.from({length:20},(_,i)=>`
-     <button onclick="openEpisode(${i+1})">
-      EP ${i+1}
-     </button>
-    `).join("")}
-    </div>
-   </div>`;
- }else{
-  document.getElementById("welcome").textContent="📚 Stories";
-  content.innerHTML=`
-   <div class="card">
-    <div class="poster">📖</div>
-    <h3>Love and Betrayal</h3>
-    <p>A beautiful story about love and secrets.</p>
-   </div>
-   <div class="card">
-    <div class="poster">👻</div>
-    <h3>The Haunted House</h3>
-    <p>A mysterious horror story.</p>
-   </div>`;
- }
-}
-
-function openEpisode(number){
- document.getElementById("welcome").textContent=
-  "Love and Betrayal - Episode "+number;
-
- document.getElementById("content").innerHTML=`
-  <div class="card">
-   <h2>Episode ${number}</h2>
-   <p>AI Drama Video</p>
-   <div class="poster">🎬</div>
-   <p>Duration: 1–5 minutes</p>
-   <p>Video coming soon.</p>
-   <button onclick="show('drama')">← Back to Episodes</button>
-   ${number<20?`<button onclick="openEpisode(${number+1})">Next Episode →</button>`:""}
-  </div>`;
-}
-</script>
-
-const translations={
-en:["Discover Amazing Stories","Stories","AI Drama","Videos"],
-sw:["Gundua Hadithi Nzuri","Hadithi","Drama za AI","Video"],
-fr:["Découvrez de belles histoires","Histoires","Drames IA","Vidéos"],
-es:["Descubre historias increíbles","Historias","Drama IA","Videos"],
-ar:["اكتشف قصصاً رائعة","قصص","دراما الذكاء الاصطناعي","فيديو"]
-};
-function changeLanguage(){
-let l=document.getElementById("language").value;
-let t=translations[l];
-document.getElementById("welcome").textContent=t[0];
-document.querySelectorAll("nav button").forEach((b,i)=>b.textContent=t[i+1]);
-document.documentElement.dir=l==="ar"?"rtl":"ltr";
-}
-function show(type){
-let titles={
-stories:"📚 Stories",
-drama:"🎬 AI Drama Series",
-videos:"▶ AI Short Videos"
-};
-document.getElementById("welcome").textContent=titles[type];
-document.getElementById("content").innerHTML=
-'<div class="card"><div class="poster">🎥</div><h3>'+titles[type]+'</h3><p>New AI-generated entertainment coming soon.</p><small>Short Story World</small></div>';
-}
-
-<script>
-const translations = {
- en:["Discover Amazing Stories","Stories","AI Drama","Videos"],
- sw:["Gundua Hadithi Nzuri","Hadithi","Drama za AI","Video"],
- fr:["Découvrez de belles histoires","Histoires","Drames IA","Vidéos"],
- es:["Descubre historias increíbles","Historias","Drama IA","Vídeos"],
- ar:["اكتشف قصصاً رائعة","قصص","دراما الذكاء الاصطناعي","فيديو"]
-};
-
-function changeLanguage(){
- const lang=document.getElementById("language").value;
- const t=translations[lang];
- document.getElementById("welcome").textContent=t[0];
- document.querySelectorAll("nav button").forEach((b,i)=>b.textContent=t[i+1]);
- document.documentElement.dir=lang==="ar"?"rtl":"ltr";
-}
-
-function show(type){
- const content=document.getElementById("content");
-
- if(type==="drama" || type==="videos"){
-  document.getElementById("welcome").textContent=
-   type==="drama"?"🎬 AI Drama Series":"▶ AI Short Videos";
-
-  content.innerHTML=`
-   <div class="card">
-    <div class="poster">❤️</div>
-    <h3>Love and Betrayal</h3>
-    <p>AI Romantic Drama Series</p>
-    <p>20 Episodes • 1–5 minutes each</p>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">
-    ${Array.from({length:20},(_,i)=>`
-     <button onclick="openEpisode(${i+1})">
-      EP ${i+1}
-     </button>
-    `).join("")}
-    </div>
-   </div>`;
- }else{
-  document.getElementById("welcome").textContent="📚 Stories";
-  content.innerHTML=`
-   <div class="card">
-    <div class="poster">📖</div>
-    <h3>Love and Betrayal</h3>
-    <p>A beautiful story about love and secrets.</p>
-   </div>
-   <div class="card">
-    <div class="poster">👻</div>
-    <h3>The Haunted House</h3>
-    <p>A mysterious horror story.</p>
-   </div>`;
- }
-}
-
-function openEpisode(number){
- document.getElementById("welcome").textContent=
-  "Love and Betrayal - Episode "+number;
-
- document.getElementById("content").innerHTML=`
-  <div class="card">
-   <h2>Episode ${number}</h2>
-   <p>AI Drama Video</p>
-   <div class="poster">🎬</div>
-   <p>Duration: 1–5 minutes</p>
-   <p>Video coming soon.</p>
-   <button onclick="show('drama')">← Back to Episodes</button>
-   ${number<20?`<button onclick="openEpisode(${number+1})">Next Episode →</button>`:""}
-  </div>`;
-}
-</script>add20 episode
-
-<style>
-#sw-episode {
-  background:#171923;
-  color:white;
-  padding:20px;
-  border-radius:14px;
-  margin:20px 0;
-  font-family:Arial,sans-serif;
-}
-#sw-episode button {
-  background:#e8a23a;
-  color:#171923;
-  border:0;
-  padding:12px 18px;
-  border-radius:8px;
-  font-weight:bold;
-  cursor:pointer;
-}
-#sw-story {
-  display:none;
-  background:#252a38;
-  padding:18px;
-  border-radius:12px;
-  margin-top:15px;
-  line-height:1.7;
-}
-
-<div id="sw-world">
-<style>
-#sw-world{background:#101522;color:white;padding:18px;border-radius:14px;font-family:Arial}
-#sw-world button{background:#e9a83b;color:#171717;border:0;padding:11px;margin:5px;border-radius:8px;font-weight:bold}
-#sw-world .sw-card{background:#202b40;padding:15px;margin:10px 0;border-radius:12px}
-#sw-world .sw-episode{background:#303b50;color:white}
-#sw-world p{line-height:1.6}
-</style>
-
 <h1>SHORT STORY WORLD</h1>
 <p>Stories • AI Drama • Videos</p>
+</header>
 
-<button onclick="swPage('stories')">STORIES</button>
-<button onclick="swPage('drama')">AI DRAMA</button>
-<button onclick="swPage('videos')">VIDEOS</button>
+<nav>
+<button onclick="showPage('home')">Home</button>
+<button onclick="showPage('stories')">Stories</button>
+<button onclick="showPage('drama')">AI Drama</button>
+<button onclick="showPage('videos')">Videos</button>
+</nav>
 
-<div id="sw-content"></div>
+<main id="app"></main>
+<footer>Short Story World · Original stories and AI drama</footer>
 
 <script>
-const swEpisodes = [
-["The Secret","Amina receives a mysterious message warning her not to marry Daniel."],
-["The Stranger","A mysterious visitor arrives at Daniel's house."],
-["The Hidden Truth","Amina discovers an old photograph."],
-["A Dangerous Promise","Daniel makes a promise he may not keep."],
-["The Phone Call","A late-night phone call changes everything."],
-["The Betrayal","Amina learns that someone close to her has lied."],
-["The Missing Letter","An old letter reveals a family secret."],
-["The Secret Meeting","Daniel meets someone without telling Amina."],
-["The Confession","Amina demands the complete truth."],
-["The Past Returns","Someone from Daniel's past comes back."],
-["The Evidence","Amina finds evidence that changes her understanding."],
-["The Warning","An unknown person warns Amina again."],
-["The Choice","Amina must decide whether to trust Daniel."],
-["The Disappearance","Daniel suddenly disappears."],
-["The Search","Amina begins searching for answers."],
-["The Truth","A hidden secret is finally revealed."],
-["The Enemy","Amina discovers who has been working against her."],
-["The Final Test","Daniel must prove that he can be trusted."],
-["The Last Chance","Amina makes one final decision."],
-["A New Beginning","The truth changes their future forever."]
+const episodes = [
+["The Secret","Amina receives a mysterious message warning her not to marry Daniel.","Amina: Daniel, is there something you're hiding from me? Daniel: The truth might make you hate me forever. A sudden knock interrupts them."],
+["The Stranger","A stranger arrives at Daniel's home and knows Amina's name.","Amina opens the door. A stranger says, You deserve to know what happened five years ago. Daniel rushes to the door."],
+["The Photograph","An old photograph reveals a connection Daniel never mentioned.","Amina finds a photograph hidden inside a book. On the back is a date—and Daniel's handwriting."],
+["A Dangerous Promise","Daniel promises to explain everything, but asks Amina for one more day.","Give me until tomorrow, Daniel says. Amina wonders whether one more day will change anything."],
+["The Phone Call","A late-night phone call changes Amina's understanding of the past.","At midnight, Amina answers an unknown number. A trembling voice says, He is not telling you everything."],
+["The Betrayal","Amina discovers that someone close to her has been lying.","Amina confronts her closest friend. The silence between them says more than words."],
+["The Missing Letter","A letter disappears before Amina can finish reading it.","She searches the room and finds an empty envelope under the door."],
+["The Secret Meeting","Amina sees Daniel meeting the stranger in secret.","From across the street, Amina watches Daniel hand over a small package."],
+["The Confession","Amina demands the complete truth.","Daniel finally sits down. There is something I should have told you from the beginning."],
+["The Past Returns","Someone from Daniel's past comes back.","A familiar face appears at the gate. Daniel whispers, I never thought I would see you again."],
+["The Evidence","Amina finds evidence that changes her understanding.","A recorded message reveals a detail that nobody expected."],
+["The Warning","Amina receives one final warning.","The message reads: Do not go to the old house alone."],
+["The Choice","Amina must decide whether to trust Daniel.","She has two choices: walk away, or hear the whole story."],
+["The Disappearance","Daniel suddenly disappears.","His phone is switched off and his apartment is empty. Amina finds one clue on the table."],
+["The Search","Amina follows the clue to find answers.","The trail leads to a quiet town where a neighbour recognises Daniel's photograph."],
+["The Truth","A hidden secret is finally revealed.","The stranger tells Amina what happened years ago. At last, the pieces begin to fit."],
+["The Enemy","Amina discovers who has been working against them.","The person behind the messages is closer than Amina imagined."],
+["The Final Test","Daniel must prove that he can be trusted.","Daniel has one chance to show that his actions match his promises."],
+["The Last Chance","Amina makes her most difficult decision.","Amina asks for honesty, not another promise. Daniel must answer."],
+["A New Beginning","The truth changes their future forever.","After everything, Amina decides what kind of future she wants. Their story reaches a new beginning."]
 ];
 
-function swPage(page){
- const area=document.getElementById("sw-content");
- if(page==="stories"){
- area.innerHTML=`
- <div class="sw-card">
- <h2>Stories</h2>
- <h3>Love and Betrayal</h3>
- <p>A story of love, secrets, trust and difficult choices.</p>
- <button onclick="swEpisode(1)">Read Story</button>
- </div>`;
- }
- if(page==="drama"){
- let html='<h2>LOVE AND BETRAYAL</h2><p>Season 1 — 20 Episodes</p>';
- swEpisodes.forEach((ep,i)=>{
- html+=`<button class="sw-episode" onclick="swEpisode(${i+1})">Episode ${i+1}: ${ep[0]}</button>`;
- });
- area.innerHTML=html;
- }
- if(page==="videos"){
- area.innerHTML=`
- <div class="sw-card">
- <h2>AI Drama Videos</h2>
- <p>Love and Betrayal — Episode 1</p>
- <p>Video itapatikana hapa baada ya kuunganishwa na faili la video halisi.</p>
- <video controls width="100%" style="border-radius:10px"></video>
- <p>More AI videos coming soon.</p>
- </div>`;
- }
-}
+const stories = [
+["The Secret of the Old House","A traveller inherits an old house and discovers a diary that changes everything.","A traveller arrives at a quiet village to claim an inherited house. In a locked room, they discover a diary. Its final page contains a name nobody in the family will discuss. The mystery has only begun."],
+["A Promise at Sunrise","Two friends make a promise that is tested by distance and time.","Before leaving their hometown, two friends promise to meet again at sunrise one year later. Life takes them in different directions, but neither forgets the promise."]
+];
 
-function swEpisode(number){
- const ep=swEpisodes[number-1];
- document.getElementById("sw-content").innerHTML=`
- <div class="sw-card">
- <h2>LOVE AND BETRAYAL</h2>
- <h3>Episode ${number}: ${ep[0]}</h3>
- <p>${ep[1]}</p>
- <p><b>To be continued...</b></p>
- <button onclick="swPage('drama')">Back to Episodes</button>
- </div>`;
-}
-swPage("stories");
-</script>
+function showPage(page){
+const app=document.getElementById('app');
+
+if(page==='home'){
+app.innerHTML=`
+<section class="card">
+<h2>Welcome to Short Story World</h2>
+<p class="muted">Discover original short stories, follow drama series, and watch videos when video files are added.</p>
+<div class="grid">
+<button onclick="showPage('stories')">Explore Stories</button>
+<button onclick="showPage('drama')">Open AI Drama</button>
+<button onclick="showPage('videos')">Open Videos</button>
 </div>
+</section>
+<section class="card">
+<h3>Featured drama</h3>
+<p><b>Love and Betrayal</b> · Season 1 · 20 episodes</p>
+<button onclick="openEpisode(1)">Start Episode 1</button>
+</section>`;
+}
 
+else if(page==='stories'){
+app.innerHTML='<h2>Stories</h2><p class="muted">Choose a story to read.</p><div class="grid">'+
+stories.map((s,i)=>`<article class="card"><h3>${s[0]}</h3><p class="muted">${s[1]}</p><button onclick="openStory(${i})">Read story</button></article>`).join('')+'</div>';
+}
 
+else if(page==='drama'){
+app.innerHTML='<section class="card"><h2>Love and Betrayal</h2><p class="muted">Season 1 · 20 episodes. Select an episode to open its story.</p><div>'+
+episodes.map((e,i)=>`<button class="episode" onclick="openEpisode(${i+1})">Episode ${i+1}: ${e[0]}</button>`).join('')+
+'</div></section>';
+}
+
+else if(page==='videos'){
+app.innerHTML=`
+<section class="card">
+<h2>Videos</h2>
+<p class="muted">Video player is ready. Add your MP4 video files to the project and update the video source to play them here.</p>
+<video controls playsinline preload="metadata">
+<source src="" type="video/mp4">
+Your browser does not support video playback.
+</video>
+<p class="muted">No video has been uploaded yet, so there is nothing to play at the moment.</p>
+</section>`;
+}
+}
+
+function openEpisode(n){
+const e=episodes[n-1];
+if(!e)return;
+
+document.getElementById('app').innerHTML=`
+<section class="card">
+<p class="muted">LOVE AND BETRAYAL · SEASON 1</p>
+<h2>Episode ${n}: ${e[0]}</h2>
+<p>${e[1]}</p>
+<h3>Episode story</h3>
+<p class="muted">${e[2]}</p>
+<button onclick="showPage('drama')">Back to episodes</button>
+<button class="secondary" onclick="openEpisode(${Math.min(n+1,20)})" ${n===20?'disabled':''}>Next episode</button>
+</section>`;
+
+window.scrollTo(0,0);
+}
+
+function openStory(i){
+const s=stories[i];
+
+document.getElementById('app').innerHTML=`
+<section class="card">
+<h2>${s[0]}</h2>
+<p class="muted">${s[2]}</p>
+<button onclick="showPage('stories')">Back to stories</button>
+</section>`;
+
+window.scrollTo(0,0);
+}
+
+showPage('home');
+</script>
 </body>
 </html>

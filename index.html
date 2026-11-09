@@ -231,5 +231,61 @@ function openEpisode(number){
 }
 </script>add20 episode
 
+<style>
+#sw-episode {
+  background:#171923;
+  color:white;
+  padding:20px;
+  border-radius:14px;
+  margin:20px 0;
+  font-family:Arial,sans-serif;
+}
+#sw-episode button {
+  background:#e8a23a;
+  color:#171923;
+  border:0;
+  padding:12px 18px;
+  border-radius:8px;
+  font-weight:bold;
+  cursor:pointer;
+}
+#sw-story {
+  display:none;
+  background:#252a38;
+  padding:18px;
+  border-radius:12px;
+  margin-top:15px;
+  line-height:1.7;
+}
+</style>
+
+<div id="sw-episode">
+  <h2>LOVE AND BETRAYAL</h2>
+  <p>Season 1 · Episode 1: The Secret</p>
+  <p>A romantic drama full of secrets and betrayal.</p>
+  <button onclick="document.getElementById('sw-story').style.display='block'">
+    WATCH / READ EPISODE 1
+  </button>
+
+  <div id="sw-story">
+    <h3>Scene 1 – The Message</h3>
+    <p>Amina receives a mysterious message:</p>
+    <blockquote>
+      "Don't marry Daniel. There is something about him you don't know."
+    </blockquote>
+
+    <h3>Scene 2 – The Confrontation</h3>
+    <p><b>Amina:</b> Daniel, is there something you're hiding from me?</p>
+    <p><b>Daniel:</b> The truth might make you hate me forever.</p>
+
+    <h3>Scene 3 – The Knock</h3>
+    <p>Suddenly, someone knocks on the door three times.</p>
+    <p>Daniel looks terrified.</p>
+
+    <h3>To Be Continued...</h3>
+    <p>Who is at the door? What secret is Daniel hiding?</p>
+  </div>
+</div>
+
 </body>
 </html>

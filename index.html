@@ -63,7 +63,78 @@ footer{text-align:center;padding:25px;color:#aaa}
 </div>
 </main>
 <footer>© 2026 Short Story World</footer>
+
 <script>
+const translations = {
+ en:["Discover Amazing Stories","Stories","AI Drama","Videos"],
+ sw:["Gundua Hadithi Nzuri","Hadithi","Drama za AI","Video"],
+ fr:["Découvrez de belles histoires","Histoires","Drames IA","Vidéos"],
+ es:["Descubre historias increíbles","Historias","Drama IA","Vídeos"],
+ ar:["اكتشف قصصاً رائعة","قصص","دراما الذكاء الاصطناعي","فيديو"]
+};
+
+function changeLanguage(){
+ const lang=document.getElementById("language").value;
+ const t=translations[lang];
+ document.getElementById("welcome").textContent=t[0];
+ document.querySelectorAll("nav button").forEach((b,i)=>b.textContent=t[i+1]);
+ document.documentElement.dir=lang==="ar"?"rtl":"ltr";
+}
+
+function show(type){
+ const content=document.getElementById("content");
+
+ if(type==="drama" || type==="videos"){
+  document.getElementById("welcome").textContent=
+   type==="drama"?"🎬 AI Drama Series":"▶ AI Short Videos";
+
+  content.innerHTML=`
+   <div class="card">
+    <div class="poster">❤️</div>
+    <h3>Love and Betrayal</h3>
+    <p>AI Romantic Drama Series</p>
+    <p>20 Episodes • 1–5 minutes each</p>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">
+    ${Array.from({length:20},(_,i)=>`
+     <button onclick="openEpisode(${i+1})">
+      EP ${i+1}
+     </button>
+    `).join("")}
+    </div>
+   </div>`;
+ }else{
+  document.getElementById("welcome").textContent="📚 Stories";
+  content.innerHTML=`
+   <div class="card">
+    <div class="poster">📖</div>
+    <h3>Love and Betrayal</h3>
+    <p>A beautiful story about love and secrets.</p>
+   </div>
+   <div class="card">
+    <div class="poster">👻</div>
+    <h3>The Haunted House</h3>
+    <p>A mysterious horror story.</p>
+   </div>`;
+ }
+}
+
+function openEpisode(number){
+ document.getElementById("welcome").textContent=
+  "Love and Betrayal - Episode "+number;
+
+ document.getElementById("content").innerHTML=`
+  <div class="card">
+   <h2>Episode ${number}</h2>
+   <p>AI Drama Video</p>
+   <div class="poster">🎬</div>
+   <p>Duration: 1–5 minutes</p>
+   <p>Video coming soon.</p>
+   <button onclick="show('drama')">← Back to Episodes</button>
+   ${number<20?`<button onclick="openEpisode(${number+1})">Next Episode →</button>`:""}
+  </div>`;
+}
+</script>
+
 const translations={
 en:["Discover Amazing Stories","Stories","AI Drama","Videos"],
 sw:["Gundua Hadithi Nzuri","Hadithi","Drama za AI","Video"],
@@ -88,6 +159,77 @@ document.getElementById("welcome").textContent=titles[type];
 document.getElementById("content").innerHTML=
 '<div class="card"><div class="poster">🎥</div><h3>'+titles[type]+'</h3><p>New AI-generated entertainment coming soon.</p><small>Short Story World</small></div>';
 }
+
+<script>
+const translations = {
+ en:["Discover Amazing Stories","Stories","AI Drama","Videos"],
+ sw:["Gundua Hadithi Nzuri","Hadithi","Drama za AI","Video"],
+ fr:["Découvrez de belles histoires","Histoires","Drames IA","Vidéos"],
+ es:["Descubre historias increíbles","Historias","Drama IA","Vídeos"],
+ ar:["اكتشف قصصاً رائعة","قصص","دراما الذكاء الاصطناعي","فيديو"]
+};
+
+function changeLanguage(){
+ const lang=document.getElementById("language").value;
+ const t=translations[lang];
+ document.getElementById("welcome").textContent=t[0];
+ document.querySelectorAll("nav button").forEach((b,i)=>b.textContent=t[i+1]);
+ document.documentElement.dir=lang==="ar"?"rtl":"ltr";
+}
+
+function show(type){
+ const content=document.getElementById("content");
+
+ if(type==="drama" || type==="videos"){
+  document.getElementById("welcome").textContent=
+   type==="drama"?"🎬 AI Drama Series":"▶ AI Short Videos";
+
+  content.innerHTML=`
+   <div class="card">
+    <div class="poster">❤️</div>
+    <h3>Love and Betrayal</h3>
+    <p>AI Romantic Drama Series</p>
+    <p>20 Episodes • 1–5 minutes each</p>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">
+    ${Array.from({length:20},(_,i)=>`
+     <button onclick="openEpisode(${i+1})">
+      EP ${i+1}
+     </button>
+    `).join("")}
+    </div>
+   </div>`;
+ }else{
+  document.getElementById("welcome").textContent="📚 Stories";
+  content.innerHTML=`
+   <div class="card">
+    <div class="poster">📖</div>
+    <h3>Love and Betrayal</h3>
+    <p>A beautiful story about love and secrets.</p>
+   </div>
+   <div class="card">
+    <div class="poster">👻</div>
+    <h3>The Haunted House</h3>
+    <p>A mysterious horror story.</p>
+   </div>`;
+ }
+}
+
+function openEpisode(number){
+ document.getElementById("welcome").textContent=
+  "Love and Betrayal - Episode "+number;
+
+ document.getElementById("content").innerHTML=`
+  <div class="card">
+   <h2>Episode ${number}</h2>
+   <p>AI Drama Video</p>
+   <div class="poster">🎬</div>
+   <p>Duration: 1–5 minutes</p>
+   <p>Video coming soon.</p>
+   <button onclick="show('drama')">← Back to Episodes</button>
+   ${number<20?`<button onclick="openEpisode(${number+1})">Next Episode →</button>`:""}
+  </div>`;
+}
 </script>
+
 </body>
 </html>

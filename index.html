@@ -257,35 +257,94 @@ function openEpisode(number){
   margin-top:15px;
   line-height:1.7;
 }
+
+<div id="sw-world">
+<style>
+#sw-world{background:#101522;color:white;padding:18px;border-radius:14px;font-family:Arial}
+#sw-world button{background:#e9a83b;color:#171717;border:0;padding:11px;margin:5px;border-radius:8px;font-weight:bold}
+#sw-world .sw-card{background:#202b40;padding:15px;margin:10px 0;border-radius:12px}
+#sw-world .sw-episode{background:#303b50;color:white}
+#sw-world p{line-height:1.6}
 </style>
 
-<div id="sw-episode">
-  <h2>LOVE AND BETRAYAL</h2>
-  <p>Season 1 · Episode 1: The Secret</p>
-  <p>A romantic drama full of secrets and betrayal.</p>
-  <button onclick="document.getElementById('sw-story').style.display='block'">
-    WATCH / READ EPISODE 1
-  </button>
+<h1>SHORT STORY WORLD</h1>
+<p>Stories • AI Drama • Videos</p>
 
-  <div id="sw-story">
-    <h3>Scene 1 – The Message</h3>
-    <p>Amina receives a mysterious message:</p>
-    <blockquote>
-      "Don't marry Daniel. There is something about him you don't know."
-    </blockquote>
+<button onclick="swPage('stories')">STORIES</button>
+<button onclick="swPage('drama')">AI DRAMA</button>
+<button onclick="swPage('videos')">VIDEOS</button>
 
-    <h3>Scene 2 – The Confrontation</h3>
-    <p><b>Amina:</b> Daniel, is there something you're hiding from me?</p>
-    <p><b>Daniel:</b> The truth might make you hate me forever.</p>
+<div id="sw-content"></div>
 
-    <h3>Scene 3 – The Knock</h3>
-    <p>Suddenly, someone knocks on the door three times.</p>
-    <p>Daniel looks terrified.</p>
+<script>
+const swEpisodes = [
+["The Secret","Amina receives a mysterious message warning her not to marry Daniel."],
+["The Stranger","A mysterious visitor arrives at Daniel's house."],
+["The Hidden Truth","Amina discovers an old photograph."],
+["A Dangerous Promise","Daniel makes a promise he may not keep."],
+["The Phone Call","A late-night phone call changes everything."],
+["The Betrayal","Amina learns that someone close to her has lied."],
+["The Missing Letter","An old letter reveals a family secret."],
+["The Secret Meeting","Daniel meets someone without telling Amina."],
+["The Confession","Amina demands the complete truth."],
+["The Past Returns","Someone from Daniel's past comes back."],
+["The Evidence","Amina finds evidence that changes her understanding."],
+["The Warning","An unknown person warns Amina again."],
+["The Choice","Amina must decide whether to trust Daniel."],
+["The Disappearance","Daniel suddenly disappears."],
+["The Search","Amina begins searching for answers."],
+["The Truth","A hidden secret is finally revealed."],
+["The Enemy","Amina discovers who has been working against her."],
+["The Final Test","Daniel must prove that he can be trusted."],
+["The Last Chance","Amina makes one final decision."],
+["A New Beginning","The truth changes their future forever."]
+];
 
-    <h3>To Be Continued...</h3>
-    <p>Who is at the door? What secret is Daniel hiding?</p>
-  </div>
+function swPage(page){
+ const area=document.getElementById("sw-content");
+ if(page==="stories"){
+ area.innerHTML=`
+ <div class="sw-card">
+ <h2>Stories</h2>
+ <h3>Love and Betrayal</h3>
+ <p>A story of love, secrets, trust and difficult choices.</p>
+ <button onclick="swEpisode(1)">Read Story</button>
+ </div>`;
+ }
+ if(page==="drama"){
+ let html='<h2>LOVE AND BETRAYAL</h2><p>Season 1 — 20 Episodes</p>';
+ swEpisodes.forEach((ep,i)=>{
+ html+=`<button class="sw-episode" onclick="swEpisode(${i+1})">Episode ${i+1}: ${ep[0]}</button>`;
+ });
+ area.innerHTML=html;
+ }
+ if(page==="videos"){
+ area.innerHTML=`
+ <div class="sw-card">
+ <h2>AI Drama Videos</h2>
+ <p>Love and Betrayal — Episode 1</p>
+ <p>Video itapatikana hapa baada ya kuunganishwa na faili la video halisi.</p>
+ <video controls width="100%" style="border-radius:10px"></video>
+ <p>More AI videos coming soon.</p>
+ </div>`;
+ }
+}
+
+function swEpisode(number){
+ const ep=swEpisodes[number-1];
+ document.getElementById("sw-content").innerHTML=`
+ <div class="sw-card">
+ <h2>LOVE AND BETRAYAL</h2>
+ <h3>Episode ${number}: ${ep[0]}</h3>
+ <p>${ep[1]}</p>
+ <p><b>To be continued...</b></p>
+ <button onclick="swPage('drama')">Back to Episodes</button>
+ </div>`;
+}
+swPage("stories");
+</script>
 </div>
+
 
 </body>
 </html>

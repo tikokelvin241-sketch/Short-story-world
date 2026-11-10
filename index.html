@@ -27,8 +27,23 @@ footer{text-align:center;color:var(--muted);padding:25px}
 </head>
 <body>
 <header>
+<header>
 <h1>SHORT STORY WORLD</h1>
 <p>Stories • AI Drama • Videos</p>
+
+<label for="siteLanguage">Choose language / Chagua lugha</label>
+<br><br>
+
+<select id="siteLanguage" onchange="setSiteLanguage(this.value)">
+<option value="en">English</option>
+<option value="sw">Kiswahili</option>
+<option value="fr">Français</option>
+<option value="es">Español</option>
+<option value="ar">العربية</option>
+</select>
+
+<p id="languageNotice">Choose your language</p>
+</header>
 </header>
 
 <nav>
@@ -69,7 +84,20 @@ const stories = [
 ["The Secret of the Old House","A traveller inherits an old house and discovers a diary that changes everything.","A traveller arrives at a quiet village to claim an inherited house. In a locked room, they discover a diary. Its final page contains a name nobody in the family will discuss. The mystery has only begun."],
 ["A Promise at Sunrise","Two friends make a promise that is tested by distance and time.","Before leaving their hometown, two friends promise to meet again at sunrise one year later. Life takes them in different directions, but neither forgets the promise."]
 ];
+function setSiteLanguage(language) {
+  const names = {
+    en: "English",
+    sw: "Kiswahili",
+    fr: "Français",
+    es: "Español",
+    ar: "العربية"
+  };
 
+  document.getElementById("languageNotice").textContent =
+    "Selected language: " + names[language];
+
+  document.documentElement.lang = language;
+}
 function showPage(page){
 const app=document.getElementById('app');
 

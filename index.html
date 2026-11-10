@@ -108,51 +108,74 @@ function setSiteLanguage(language) {
     "Selected language: " + language;
 }
 
-function showPage(page){
-const app=document.getElementById('app');
 
-if(page==='home'){
-app.innerHTML=`
-<section class="card">
-<h2>Welcome to Short Story World</h2>
-<p class="muted">Discover original short stories, follow drama series, and watch videos when video files are added.</p>
-<div class="grid">
-<button onclick="showPage('stories')">Explore Stories</button>
-<button onclick="showPage('drama')">Open AI Drama</button>
-<button onclick="showPage('videos')">Open Videos</button>
-</div>
-</section>
-<section class="card">
-<h3>Featured drama</h3>
-<p><b>Love and Betrayal</b> · Season 1 · 20 episodes</p>
-<button onclick="openEpisode(1)">Start Episode 1</button>
-</section>`;
+let currentLanguage = "en";
+
+function showPage(page) {
+  currentPage = page;
+  const app = document.getElementById("app");
+
+  const words = {
+    en: ["Welcome to Short Story World","Discover original short stories, follow drama series, and watch videos.","Explore Stories","Open AI Drama","Open Videos","Featured drama","Season 1 · 20 episodes","Start Episode 1","Choose a story to read.","Read story","Select an episode to open its story.","Video player is ready. Add your MP4 video files to the project.","No video has been uploaded yet.","Episode","Stories","Videos"],
+    sw: ["Karibu Short Story World","Gundua hadithi mpya, fuatilia tamthilia na tazama video.","Chunguza Hadithi","Fungua Drama za AI","Fungua Video","Drama maalumu","Msimu wa 1 · Vipindi 20","Anza Kipindi cha 1","Chagua hadithi ya kusoma.","Soma hadithi","Chagua kipindi ili kufungua hadithi yake.","Kicheza video kiko tayari. Ongeza faili zako za MP4.","Bado hakuna video iliyowekwa.","Kipindi","Hadithi","Video"],
+    fr: ["Bienvenue sur Short Story World","Découvrez des histoires originales, des séries dramatiques et des vidéos.","Explorer les histoires","Ouvrir le drame IA","Ouvrir les vidéos","Drame à la une","Saison 1 · 20 épisodes","Commencer l'épisode 1","Choisissez une histoire à lire.","Lire l'histoire","Choisissez un épisode pour lire son histoire.","Le lecteur vidéo est prêt. Ajoutez vos fichiers MP4.","Aucune vidéo n'a encore été ajoutée.","Épisode","Histoires","Vidéos"],
+    es: ["Bienvenido a Short Story World","Descubre historias originales, series dramáticas y vídeos.","Explorar historias","Abrir drama IA","Abrir vídeos","Drama destacado","Temporada 1 · 20 episodios","Comenzar episodio 1","Elige una historia para leer.","Leer historia","Elige un episodio para abrir su historia.","El reproductor está listo. Añade tus archivos MP4.","Todavía no se ha subido ningún vídeo.","Episodio","Historias","Vídeos"],
+    ar: ["مرحباً بك في عالم القصص القصيرة","اكتشف قصصاً أصلية وتابع المسلسلات وشاهد الفيديوهات.","استكشف القصص","افتح دراما الذكاء الاصطناعي","افتح الفيديوهات","دراما مميزة","الموسم الأول · 20 حلقة","ابدأ الحلقة الأولى","اختر قصة لقراءتها.","اقرأ القصة","اختر حلقة لفتح قصتها.","مشغل الفيديو جاهز. أضف ملفات MP4.","لم يتم تحميل أي فيديو بعد.","الحلقة","القصص","الفيديوهات"]
+  };
+
+  const t = words[currentLanguage] || words.en;
+
+  if (page === "home") {
+    app.innerHTML = `
+    <section class="card">
+      <h2>${t[0]}</h2>
+      <p class="muted">${t[1]}</p>
+      <div class="grid">
+        <button onclick="showPage('stories')">${t[2]}</button>
+        <button onclick="showPage('drama')">${t[3]}</button>
+        <button onclick="showPage('videos')">${t[4]}</button>
+      </div>
+    </section>
+    <section class="card">
+      <h3>${t[5]}</h3>
+      <p><b>Love and Betrayal</b> · ${t[6]}</p>
+      <button onclick="openEpisode(1)">${t[7]}</button>
+    </section>`;
+  }
+
+  else if (page === "stories") {
+    app.innerHTML = `<h2>${t[14]}</h2>
+    <p class="muted">${t[8]}</p><div class="grid">` +
+    stories.map((s,i) => `
+      <article class="card">
+        <h3>${s[0]}</h3>
+        <p class="muted">${s[1]}</p>
+        <button onclick="openStory(${i})">${t[9]}</button>
+      </article>`).join("") + `</div>`;
+  }
+
+  else if (page === "drama") {
+    app.innerHTML = `<section class="card">
+      <h2>Love and Betrayal</h2>
+      <p class="muted">${t[10]}</p><div>` +
+      episodes.map((e,i) => `
+        <button class="episode" onclick="openEpisode(${i+1})">
+        ${t[13]} ${i+1}: ${e[0]}</button>`).join("") +
+      `</div></section>`;
+  }
+
+  else if (page === "videos") {
+    app.innerHTML = `<section class="card">
+      <h2>${t[15]}</h2>
+      <p class="muted">${t[11]}</p>
+      <video controls playsinline preload="metadata">
+        <source src="" type="video/mp4">
+      </video>
+      <p class="muted">${t[12]}</p>
+    </section>`;
+  }
 }
 
-else if(page==='stories'){
-app.innerHTML='<h2>Stories</h2><p class="muted">Choose a story to read.</p><div class="grid">'+
-stories.map((s,i)=>`<article class="card"><h3>${s[0]}</h3><p class="muted">${s[1]}</p><button onclick="openStory(${i})">Read story</button></article>`).join('')+'</div>';
-}
-
-else if(page==='drama'){
-app.innerHTML='<section class="card"><h2>Love and Betrayal</h2><p class="muted">Season 1 · 20 episodes. Select an episode to open its story.</p><div>'+
-episodes.map((e,i)=>`<button class="episode" onclick="openEpisode(${i+1})">Episode ${i+1}: ${e[0]}</button>`).join('')+
-'</div></section>';
-}
-
-else if(page==='videos'){
-app.innerHTML=`
-<section class="card">
-<h2>Videos</h2>
-<p class="muted">Video player is ready. Add your MP4 video files to the project and update the video source to play them here.</p>
-<video controls playsinline preload="metadata">
-<source src="" type="video/mp4">
-Your browser does not support video playback.
-</video>
-<p class="muted">No video has been uploaded yet, so there is nothing to play at the moment.</p>
-</section>`;
-}
-}
 
 function openEpisode(n){
 const e=episodes[n-1];

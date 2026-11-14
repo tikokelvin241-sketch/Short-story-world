@@ -84,35 +84,39 @@ const stories = [
 ["The Secret of the Old House","A traveller inherits an old house and discovers a diary that changes everything.","A traveller arrives at a quiet village to claim an inherited house. In a locked room, they discover a diary. Its final page contains a name nobody in the family will discuss. The mystery has only begun."],
 ["A Promise at Sunrise","Two friends make a promise that is tested by distance and time.","Before leaving their hometown, two friends promise to meet again at sunrise one year later. Life takes them in different directions, but neither forgets the promise."]
 ];
+  
 function setSiteLanguage(language) {
   currentLanguage = language;
+
   const translations = {
-    en: ["Home", "Stories", "AI Drama", "Videos", "Stories • AI Drama • Videos"],
-    sw: ["Nyumbani", "Hadithi", "Drama za AI", "Video", "Hadithi • Drama za AI • Video"],
-    fr: ["Accueil", "Histoires", "Drame IA", "Vidéos", "Histoires • Drame IA • Vidéos"],
-    es: ["Inicio", "Historias", "Drama IA", "Vídeos", "Historias • Drama IA • Vídeos"],
-    ar: ["الرئيسية", "القصص", "دراما الذكاء الاصطناعي", "الفيديوهات", "قصص • دراما • فيديوهات"]
-  if (typeof currentPage !== "undefined") {
-  showPage(currentPage);
-  }};
+    en: ["Home", "Stories", "AI Drama", "Videos", "Choose your language"],
+    sw: ["Nyumbani", "Hadithi", "Drama za AI", "Video", "Chagua lugha yako"],
+    fr: ["Accueil", "Histoires", "Drame IA", "Vidéos", "Choisissez votre langue"],
+    es: ["Inicio", "Historias", "Drama IA", "Vídeos", "Elige tu idioma"],
+    ar: ["الرئيسية", "القصص", "دراما الذكاء الاصطناعي", "الفيديوهات", "اختر لغتك"]
+  };
 
   const t = translations[language] || translations.en;
+
   const buttons = document.querySelectorAll("nav button");
 
   buttons.forEach((button, i) => {
-    button.textContent = t[i];
+    if (t[i] !== undefined) {
+      button.textContent = t[i];
+    }
   });
 
-  document.querySelector("header p").textContent = t[4];
-  document.documentElement.lang = language;
-  document.documentElement.dir = language === "ar" ? "rtl" : "ltr";
+  const notice = document.getElementById("languageNotice");
+  if (notice) {
+    notice.textContent = t[4];
+  }
 
-  document.getElementById("languageNotice").textContent =
-    "Selected language: " + language;
+  if (typeof currentPage !== "undefined" &&
+      typeof showPage === "function") {
+    showPage(currentPage);
+  }
 }
 
-
-let currentLanguage = "en";
 
 function showPage(page) {
   currentPage = page;

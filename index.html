@@ -186,15 +186,35 @@ function showPage(page) {
       </article>`).join("") + `</div>`;
   }
 
-  else if (page === "drama") {
-    app.innerHTML = `<section class="card">
-      <h2>Love and Betrayal</h2>
-      <p class="muted">${t[10]}</p><div>` +
-      episodes.map((e,i) => `
-        <button class="episode" onclick="openEpisode(${i+1})">
-        ${t[13]} ${i+1}: ${e[0]}</button>`).join("") +
-      `</div></section>`;
-  }
+ 
+else if (page === "drama") {
+  app.innerHTML = `
+    <h2>AI Drama</h2>
+    <p class="muted">Choose your favourite drama series.</p>
+
+    <div class="grid">
+      <section class="card">
+        <h3>Love and Betrayal</h3>
+        <p class="muted">Season 1 · 20 Episodes</p>
+        <button onclick="showOriginalEpisodes()">
+          Watch Episodes
+        </button>
+      </section>
+
+      ${newDramas.map((d,i) => `
+        <section class="card">
+          <h3>${d.title}</h3>
+          <p class="muted">${d.description}</p>
+          <p>Season 1 · ${d.episodes.length} Episodes</p>
+          <button onclick="showNewDramaEpisodes(${i})">
+            Watch Episodes
+          </button>
+        </section>
+      `).join("")}
+    </div>
+  `;
+}
+
 
   else if (page === "videos") {
     app.innerHTML = `<section class="card">

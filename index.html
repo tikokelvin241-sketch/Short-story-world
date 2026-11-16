@@ -81,20 +81,223 @@ const episodes = [
 ];
 
 
+
 const stories = [
-["The Secret of the Old House","A traveller discovers a family mystery.","A traveller inherits an old house in a quiet village. Inside a locked room, they discover an old diary. Its final page contains a name nobody in the family will discuss. The mystery has only begun."],
-["A Promise at Sunrise","Two friends make a promise tested by time.","Two friends promise to meet again at sunrise one year later. Life takes them in different directions, but neither forgets their promise."],
-["The Millionaire's Secret","A poor young man discovers his hidden family history.","Daniel struggles to support his family. One morning, a stranger gives him a photograph of a millionaire who may be his father."],
-["Love Beyond Borders","Two people fall in love across countries.","Amara meets James online. Their friendship becomes love, but distance and jealousy threaten their relationship."],
-["The Village Without Shadows","A mysterious village hides a terrifying secret.","A journalist visits a village where nobody casts a shadow. At midnight, she discovers an ancient secret."],
-["The Last Survivor","An explorer fights to survive on a mysterious island.","After a plane crash, a passenger wakes up alone on an island. Strange footprints appear near his shelter every morning."],
-["The Forgotten Kingdom","A young prince discovers his true identity.","Michael discovers an ancient crown hidden beneath his home. He learns that he may be the rightful heir to a lost kingdom."],
-["The Betrayal","Two friends face jealousy and betrayal.","Peter and Daniel build a successful business together. But one night, Peter discovers that their money has disappeared."],
-["The Girl in the Mirror","A mysterious reflection changes a young woman's life.","Anna sees a girl standing behind her in the mirror every night. One evening, the reflection writes: Do not trust your family."],
-["Journey to Freedom","A young woman fights for her dreams.","Neema dreams of becoming a doctor despite growing up in a poor village. Her determination changes her future."],
-["The Secret Agent","An ordinary man discovers a dangerous secret.","David receives a mysterious package containing a passport and a warning. Suddenly, strangers begin following him."],
-["Christmas at Home","A family discovers the meaning of forgiveness.","Three siblings return home after many years apart. A letter from their late mother reveals a truth that brings them together."]
+  {
+    id: 1,
+    title: "The Secret Behind the Millionaire",
+    category: "Love & Mystery",
+    image: "https://images.unsplash.com/photo-1519608487953-e999c86e7455",
+    description: "A love story filled with secrets, betrayal and unexpected discoveries.",
+    content: `
+CHAPTER ONE: THE STRANGER
+
+The rain was falling heavily in the city of London.
+Amina stood beside the window of her small apartment,
+watching the people rushing through the streets.
+
+She had always believed that true love was something
+beautiful. But after what happened three years ago,
+she had stopped trusting people.
+
+Her phone suddenly rang.
+
+"Hello?" she answered.
+
+"Amina, I need to see you. There is something
+important I must tell you," a man's voice said.
+
+"Who is this?"
+
+"It's Daniel."
+
+Amina froze. She had not heard that name in three years.
+
+"Daniel? How did you get my number?"
+
+"I know you have many questions. Please, meet me
+tomorrow at the old restaurant."
+
+She wanted to hang up, but curiosity stopped her.
+
+"Why now, Daniel? Why after all these years?"
+
+There was silence.
+
+"Because the truth about your father is finally
+coming out."
+
+The call ended.
+
+Amina slowly lowered her phone. Her father had died
+when she was only sixteen. What truth could Daniel
+possibly know?
+
+CHAPTER TWO: THE MEETING
+
+The following morning, Amina arrived at the restaurant
+twenty minutes early.
+
+Daniel was already sitting at a table near the window.
+
+He looked different. He wore an expensive black suit
+and a silver watch. But his eyes were the same.
+
+"Hello, Amina," he said.
+
+"Don't pretend we are old friends. Tell me why
+you called me."
+
+Daniel opened a brown envelope and placed several
+documents on the table.
+
+"Your father did not die poor, Amina. He owned
+a company worth millions."
+
+Amina looked at him in disbelief.
+
+"That's impossible. My mother struggled to pay
+our school fees."
+
+"I know. Someone stole everything."
+
+"Who?"
+
+Daniel looked around before answering.
+
+"My father."
+
+Amina stood up immediately.
+
+"Are you telling me your family destroyed mine?"
+
+Daniel lowered his head.
+
+"I am telling you that I have evidence, and I want
+to help you recover what belongs to you."
+
+Amina picked up the envelope.
+
+Inside were photographs, bank statements and
+a document bearing her father's signature.
+
+But one photograph made her heart stop.
+
+It showed her mother standing beside Daniel's father
+on the day her own father disappeared.
+
+"What is my mother hiding?" she whispered.
+
+Daniel had no answer.
+
+CHAPTER THREE: THE BIGGEST SECRET
+
+That evening, Amina returned home and placed the
+photograph in front of her mother.
+
+"Tell me the truth. What happened between you
+and Mr. William?"
+
+Her mother's hands began to shake.
+
+"Where did you get this?"
+
+"Daniel gave it to me."
+
+Her mother sat down slowly.
+
+"There are things you are too young to understand."
+
+"I am not a child anymore. I deserve the truth!"
+
+Her mother began to cry.
+
+"Your father was planning to leave the country.
+He had discovered something terrible about William."
+
+"What was it?"
+
+Before her mother could answer, someone knocked
+three times on the front door.
+
+Amina opened it.
+
+A man stood outside holding a black suitcase.
+
+"Are you Amina?" he asked.
+
+"Yes. Who are you?"
+
+The man handed her a letter.
+
+"Your father asked me to give you this when
+the right time came."
+
+Amina opened the letter.
+
+The first sentence read:
+
+'My daughter, if you are reading this,
+then the people who betrayed me have finally
+found their way back to you.'
+
+She looked up.
+
+The stranger was already walking away.
+
+And suddenly, her phone rang again.
+
+Unknown number.
+
+She answered.
+
+"Stop investigating your father's death,
+or you will lose everything."
+
+The call ended.
+
+Amina looked at Daniel's photograph on the table.
+
+This was no longer just about money.
+
+It was about her family, her past,
+and a dangerous secret that someone was willing
+to kill to protect.
+
+TO BE CONTINUED...
+`
+  }
 ];
+
+function openLongStory(id) {
+  const story = stories.find(item => item.id === id);
+  if (!story) return;
+
+  const app = document.getElementById("app");
+
+  app.innerHTML = `
+    <div style="max-width:850px;margin:auto;padding:20px;">
+      <button onclick="showPage('stories')">← Back to Stories</button>
+
+      <h1>${story.title}</h1>
+
+      <p style="color:gray">${story.category}</p>
+
+      <img src="${story.image}"
+        style="width:100%;border-radius:14px;max-height:350px;object-fit:cover;">
+
+      <p style="font-size:18px;line-height:1.9;white-space:pre-line;">
+        ${story.content}
+      </p>
+
+      <h2>More chapters coming soon...</h2>
+
+      <button onclick="showPage('stories')">
+        Discover More Stories
+      </button>
+    </div>
+  `;
+}
 
 
  
